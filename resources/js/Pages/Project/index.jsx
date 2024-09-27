@@ -1,7 +1,7 @@
 import Pagination from "@/Components/Pagination";
 import SelectInput from "@/Components/SelectInput";
 import TextInput from "@/Components/TextInput";
-import { PROJECT_STATUS_TEXT_MAP } from "@/constants";
+import { PROJECT_STATUS_TEXT_MAP, PROJECT_STATUS_CLASS_MAP } from "@/constants";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
@@ -159,14 +159,14 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                                                            }}
                                                                       />
                                                                  </td>
-                                                                 <td className="px-3 py-2">
-                                                                      {project.name}
-                                                                 </td>
+                                                                 <th className="px-3 py-2 text-gray text-nowrap hover:underline ">
+                                                                     <Link href={route('project.show', project.id)}> {project.name}</Link>
+                                                                 </th>
                                                                  <td className="px-3 py-2">
                                                                       <span
                                                                            className={
                                                                                 "px-2 py-1 rounded text-white " +
-                                                                                PROJECT_STATUS_TEXT_MAP[
+                                                                                PROJECT_STATUS_CLASS_MAP[
                                                                                 project
                                                                                      .status
                                                                                 ]

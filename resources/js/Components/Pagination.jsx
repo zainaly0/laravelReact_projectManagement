@@ -17,7 +17,6 @@ const Pagination = ({ links }) => {
                     </Link>
                 ))
             }
-p
         </div>
     )
 }
