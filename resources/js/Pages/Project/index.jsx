@@ -5,6 +5,8 @@ import { PROJECT_STATUS_TEXT_MAP } from "@/constants";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/16/solid"
+import TableHeading from "@/Components/TableHeading";
 
 const Index = ({ auth, projects, queryParams = null }) => {
      queryParams = queryParams || {};
@@ -64,24 +66,24 @@ const Index = ({ auth, projects, queryParams = null }) => {
                                         <table className="w-full text-sm text-left rtl:text-right text-gray500 dark:text-gray-400">
                                              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                                                   <tr className="text-nowrap">
-                                                       <th onClick={e => sortChanged('id')} className="px-3 py-3">
+                                                       <TableHeading name="id" sort_field={queryParams.sort_field} sort_direction={queryParams.sort_direction} sortChanged={sortChanged}>
                                                             ID
-                                                       </th>
+                                                       </TableHeading>
                                                        <th className="px-3 py-3">
                                                             Image
                                                        </th>
-                                                       <th onClick={e => sortChanged('name')} className="px-3 py-3">
+                                                       <TableHeading name="name" sort_field={queryParams.sort_field} sort_direction={queryParams.sort_direction} sortChanged={sortChanged}>
                                                             Name
-                                                       </th>
-                                                       <th onClick={e => sortChanged('status')} className="px-3 py-3">
+                                                       </TableHeading>
+                                                       <TableHeading name="status" sort_field={queryParams.sort_field} sort_direction={queryParams.sort_direction} sortChanged={sortChanged}>
                                                             Status
-                                                       </th>
-                                                       <th onClick={e => sortChanged('created_at')} className="px-3 py-3">
+                                                       </TableHeading>
+                                                       <TableHeading name="created_at" sort_field={queryParams.sort_field} sort_direction={queryParams.sort_direction} sortChanged={sortChanged}>
                                                             Create Date
-                                                       </th>
-                                                       <th onClick={e => sortChanged('due_date')} className="px-3 py-3">
+                                                       </TableHeading>
+                                                       <TableHeading name="due_date" sort_field={queryParams.sort_field} sort_direction={queryParams.sort_direction} sortChanged={sortChanged}>
                                                             Due Date
-                                                       </th>
+                                                       </TableHeading>
                                                        <th className="px-3 py-3">
                                                             created By
                                                        </th>
