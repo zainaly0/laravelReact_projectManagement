@@ -18,7 +18,7 @@ const Create = ({ auth }) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    post(route('project.create'))
+    post(route('project.store'))
   }
 
 
@@ -109,6 +109,9 @@ const Create = ({ auth }) => {
                 <Link href={route('project.index')} className='bg-gray-100 py-1 px-3 text-gray-800 rounded shadow transition-all hover:bg-gray-200 mr-2'>
                   Cancel
                 </Link>
+                <button className='bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-600'>
+                  Submit
+                </button>
 
               </div>
 
