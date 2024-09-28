@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react'
 import React from 'react'
 
 const Pagination = ({ links }) => {
-    console.log(links)
+    // console.log(links)
     return (
         <div className='text-center mt-4'>
             {
