@@ -165,7 +165,7 @@ const Index = ({ auth, users, queryParams = null, success }) => {
                                                                      {user.name}
                                                                  </th>
                                                                  <td className="px-3 py-2">
-                                                                      {user.name}
+                                                                      {user.email}
                                                                  </td>
                                                                  <td className="px-3 py-2 text-nowrap">
                                                                       {
