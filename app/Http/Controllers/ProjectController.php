@@ -58,10 +58,7 @@ class ProjectController extends Controller
         if ($image) {
             $data['image_path'] = $image->store('project/' . Str::random(), 'public');
         }
-
-
         $project = Project::create($data);
-
         return to_route('project.index')->with('success', 'Project was created');
     }
 
@@ -70,7 +67,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-
         $query = $project->tasks();
         $sortFields = request('sort_field', 'created_at');
         $sortDirection = request('sortDirection', "desc");
@@ -97,7 +93,6 @@ class ProjectController extends Controller
     {
         return inertia('Project/Edit', [
             'project' => new ProjectResource($project),
-
         ]);
     }
 

@@ -36,7 +36,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return inertia("Project/Create");
     }
 
     /**
@@ -44,7 +44,17 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        $data = $request->validated();
+        // dd($data);
+        $image = $data['image'] ?? null;
+        $data['created_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
+        /** @var \Illuminate\Http\UploadedFile|null $image */
+        if ($image) {
+            $data['image_path'] = $image->store('project/' . Str::random(), 'public');
+        }
+        $project = Project::create($data);
+        return to_route('project.index')->with('success', 'Project was created');
     }
 
     /**
@@ -52,7 +62,23 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        $query = $project->tasks();
+        $sortFields = request('sort_field', 'created_at');
+        $sortDirection = request('sortDirection', "desc");
+        if (request("name")) {
+            $query->where("name", "like", "%" . request('name') . "%");
+        }
+
+        if (request("status")) {
+            $query->where('status', request('status'));
+        }
+        $tasks = $query->orderBy($sortFields, $sortDirection)->paginate(10)->onEachSide(1);
+        return inertia('Project/Show', [
+            'project' => new ProjectResource($project),
+            'tasks' => TaskResource::collection($tasks),
+            'queryParams' => request()->query() ?: null,
+
+        ]);
     }
 
     /**
@@ -60,7 +86,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        //
+        return inertia('Project/Edit', [
+            'project' => new ProjectResource($project),
+        ]);
     }
 
     /**
@@ -68,7 +96,20 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $data = $request->validated();
+        // dd($data);
+        $image = $data['image'] ?? null;
+        $data['updated_by'] = Auth::id();
+        // /** @var \Illuminate\Http\UploadedFile|null $image */
+        if ($image) {
+            if ($project->image_path) {
+                Storage::disk('public')->deleteDirectory(dirname($project->image_path));
+            }
+            $data['image_path'] = $image->store('project/' . Str::random(), 'public');
+        }
+        // $project->update($request->validate());
+        $project->update($data);
+        return to_route('project.index')->with('success', "Project \"$project->name\" was updated ");
     }
 
     /**
@@ -79,3 +120,7 @@ class TaskController extends Controller
         //
     }
 }
+
+
+
+4.32.41
